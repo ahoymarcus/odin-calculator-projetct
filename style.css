@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e6e6a3; /*#fdfdcc;*/
+}
+
+header {
+    color: #4c4460;
+    text-align: center;
+}
+
+header p {
+    font-size: 1.4rem;
+}
+
+.title {
+    font-size: 3.2rem;
+}
+
+.title-span {
+    color: red;
+}
+
+.btn-grid {
+    color: #f21a1a;
+    background-color: #aaaac8;
+    border: 3px dashed yellow;
+    font-size: 1rem;
+    text-transform: uppercase;
+    
+    margin: 20px 0px;
+    padding: 12px;
+    cursor: pointer;
+    position: relative;
+    right: 50px;
+}
+
+
+
+
+
+
+
