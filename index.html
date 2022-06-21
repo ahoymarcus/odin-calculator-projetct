@@ -9,13 +9,13 @@
 	</head>
 	<body>
 			
-		<header>
-			<h1 class="title">
-				my<span class="title-span">Calculator</span>
+		<header class="header">
+			<h1 class="header__title">
+				my<span class="header__title-span">Calculator</span>
 			</h1>
-			<p>Rock'n'numbers</p>
+			<p class="header__desc">Rock'n'numbers</p>
 			
-			<button id="clean-grid" class="aux-btn">Hey'a, some old style hard numbers!</button>
+			<button id="clean-grid" class="header__aux-btn">Hey'a, some old style hard numbers!</button>
 		</header>
 		
 		
@@ -24,43 +24,43 @@
 		
 		
 		<main id="game" class="calc-container">
-		<div id="calc-display" class="calc-display">
-			0
-		</div>
+            <div id="calc-display" class="calc-display">
+                0
+            </div>
 		
-		<div id="calc-keyboard" class="keyboard">
-			<div id="num-keys" class="num-keys">
-				<div id="seven" class="keys">7</div>
-				<div id="eight" class="keys">8</div>
-				<div id="nine" class="keys">9</div>
-				<div id="four" class="keys">4</div>
-				<div id="five" class="keys">5</div>
-				<div id="six" class="keys">6</div>
-				<div id="two" class="keys">1</div>
-				<div id="one" class="keys">2</div>
-				<div id="three" class="keys">3</div>
-				<div id="zero" class="keys">0</div>
-				<div id="point" class="keys">.</div>
-				<div id="percent" class="keys">%</div>
-			</div>
-			
-			<div id="oper-keys" class="oper-keys">
-				<div id="div-oper" class="keys">/</div>
-				<div id="mult-oper" class="keys">x</div>
-				<div id="sub-oper" class="keys">-</div>
-				<div id="add-oper" class="keys">+</div>
-			</div>
-			
-			<div id="aux-keys" class="aux-keys">
-				<div id="carriage-ret" class="keys">&#8592</div>
-				<div id="clear" class="keys">C</div>
-				<div id="left-parent" class="keys inactive-keys" >(</div>
-				<div id="right-parent" class="keys inactive-keys" >)</div>
-				<div id="power2" class="keys">x²</div>
-				<div id="rad2" class="keys">&#8730</div>
-				<div id="equal-sign" class="equal-sign">=</div> 
-		</div>
-	</main>
+            <div id="calc-keyboard" class="keyboard">
+                <div id="num-keys" class="keyboard__num-keys">
+                    <div id="seven" class="keyboard__keys">7</div>
+                    <div id="eight" class="keyboard__keys">8</div>
+                    <div id="nine" class="keyboard__keys">9</div>
+                    <div id="four" class="keyboard__keys">4</div>
+                    <div id="five" class="keyboard__keys">5</div>
+                    <div id="six" class="keyboard__keys">6</div>
+                    <div id="two" class="keyboard__keys">1</div>
+                    <div id="one" class="keyboard__keys">2</div>
+                    <div id="three" class="keyboard__keys">3</div>
+                    <div id="zero" class="keyboard__keys">0</div>
+                    <div id="point" class="keyboard__keys">.</div>
+                    <div id="percent" class="keyboard__keys">%</div>
+                </div>
+                
+                <div id="oper-keys" class="keyboard__oper-keys">
+                    <div id="div-oper" class="keyboard__keys">/</div>
+                    <div id="mult-oper" class="keyboard__keys">x</div>
+                    <div id="sub-oper" class="keyboard__keys">-</div>
+                    <div id="add-oper" class="keyboard__keys">+</div>
+                </div>
+                
+                <div id="aux-keys" class="keyboard__aux-keys">
+                    <div id="carriage-ret" class="keyboard__keys">&#8592</div>
+                    <div id="clear" class="keyboard__keys">C</div>
+                    <div id="left-parent" class="keyboard__keys inactive-keys" >(</div>
+                    <div id="right-parent" class="keyboard__keys inactive-keys" >)</div>
+                    <div id="power2" class="keyboard__keys">x²</div>
+                    <div id="rad2" class="keyboard__keys">&#8730</div>
+                    <div id="equal-sign" class="keyboard__equal-sign">=</div> 
+            </div>
+        </main>
 	
 		
 		<script src="index.js"></script>

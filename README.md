@@ -16,6 +16,7 @@ Dependências:
 
 - HTML
 - CSS
+- CSS Patterns
 - JavaScript
 
 

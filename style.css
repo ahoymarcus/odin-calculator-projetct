@@ -13,24 +13,24 @@ hr {
 	margin-bottom: 60px;
 }
 
-header {
+.header {
 	color: #4c4460;
 	text-align: center;
 }
 
-header p {
+.header__desc {
 	font-size: 1.4rem;
 }
 
-.title {
+.header__title {
 	font-size: 3.2rem;
 }
 
-.title-span {
+.header__title-span {
 	color: red;
 }
 
-.aux-btn {
+.header__aux-btn {
 	color: #f21a1a;
 	background-color: #aaaac8;
 	border: 3px dashed yellow;
@@ -70,18 +70,7 @@ header p {
 	border-radius: 3px;
 }
 
-.equal-sign {
-	background-color: #af3939;
-	width: 120px;
-	height: 45px;
-	border: 1px solid black;
-	border-radius: 3px;
-	padding: 10px;
-	text-align: center;
-}
-
-.keys {
-	background-color: #cb6969;
+.keyboard__keys {
 	width: 60px;
 	height: 45px;
 	border: 1px solid black;
@@ -90,32 +79,61 @@ header p {
 	text-align: center;
 }
 
-.equal-sign, .keys {
+.keyboard__equal-sign {
+	background-color: #3c3106; /*#af3939;*/
+	width: 120px;
+	height: 45px;
+	border: 1px solid black;
+	border-radius: 3px;
+	padding: 10px;
+	text-align: center;
+}
+
+.keyboard__equal-sign, .keyboard__keys {
 	color: #faecec;
 	font-size: 1.2rem;
 	font-weight: bold;
 	cursor: cell;
 }
 
-.equal-sign:hover, .keys:hover {
-	transform: scale(1.03);
-	border: 0.3px solid #ffff0078;
-	border-radius: 3px;
-}
-
-
-.num-keys {
+.keyboard__num-keys {
+    background-color: #cb6969;
 	display: grid;
 	grid-template-columns: auto auto auto;
 	height: 180px;
 }
 
-.aux-keys {
+.keyboard__oper-keys {
+    background-color: #b7a74f; /*#b74f4f;*/
+}
+
+.keyboard__aux-keys {
+    background-color: #867637; /*#d91a1a;*/
 	display: flex;
 	flex-wrap: wrap;
 	width: 120px;
 	height: 180px;
 }
+
+.keyboard__num-keys .keyboard__keys:hover {
+	transform: scale(1.02);
+	border: 0.3px solid #ffff0078;
+	border-radius: 3px;
+}
+
+.keyboard__oper-keys .keyboard__keys:hover, .keyboard__aux-keys .keyboard__keys:hover {
+	transform: scale(1.02);
+	border: 0.3px solid #faecec8a; /*#ffff0078;*/
+	border-radius: 3px;
+}
+
+.keyboard__equal-sign:hover {
+    transform: scale(1.03);
+	border: 0.3px solid #faecec8a; /*#ffff0078;*/
+	border-radius: 3px;
+}
+
+
 
 .inactive-keys {
 	cursor: no-drop;
