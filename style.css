@@ -1,77 +1,123 @@
+/* 
+	Key Codes: http://cactus.io/resources/toolbox/html-arrow-symbol-codes
+*/
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-    background-color: #e6e6a3; /*#fdfdcc;*/
+	background-color: #e6e6a3; /*#fdfdcc;*/
+}
+
+hr {
+	margin-bottom: 60px;
 }
 
 header {
-    color: #4c4460;
-    text-align: center;
+	color: #4c4460;
+	text-align: center;
 }
 
 header p {
-    font-size: 1.4rem;
+	font-size: 1.4rem;
 }
 
 .title {
-    font-size: 3.2rem;
+	font-size: 3.2rem;
 }
 
 .title-span {
-    color: red;
+	color: red;
 }
 
 .aux-btn {
-    color: #f21a1a;
-    background-color: #aaaac8;
-    border: 3px dashed yellow;
-    font-size: 1rem;
-    text-transform: uppercase;
-    
-    margin: 20px 0px;
-    padding: 12px;
-    cursor: pointer;
-    position: relative;
-    right: 50px;
+	color: #f21a1a;
+	background-color: #aaaac8;
+	border: 3px dashed yellow;
+	font-size: 1rem;
+	text-transform: uppercase;
+	
+	margin: 20px 0px;
+	padding: 12px;
+	cursor: pointer;
+	position: relative;
+	right: 50px;
 }
 
 
+/* CALCULATOR UI */
+.calc-container {
+	width: 360px;
+	margin: auto;
+}
+
+.calc-display, .keyboard {
+	
+}
+
+.calc-display {
+	color: white;
+	background-color: #1e1c1cdb;
+	font-size: 1.4rem;
+	padding: 12px;
+	text-align: right;
+	border-radius: 3px 3px 0 0;
+}
+
 .keyboard {
-    background-color: #9f9ffb;
-    display: flex;
-    
+	background-color: black; /*#9f9ffb;*/
+	display: flex;
+	border-radius: 3px;
 }
 
 .equal-sign {
-    background-color: brown;
-    width: 120px;
-    height: 45px;
-    border: 1px solid black;
-    border-radius: 2px;
-    padding: 10px;
-    text-align: center;
+	background-color: #af3939;
+	width: 120px;
+	height: 45px;
+	border: 1px solid black;
+	border-radius: 3px;
+	padding: 10px;
+	text-align: center;
 }
 
 .keys {
-    background-color: brown;
-    width: 60px;
-    height: 45px;
-    border: 1px solid black;
-    border-radius: 2px;
-    padding: 10px;
-    text-align: center;
+	background-color: #cb6969;
+	width: 60px;
+	height: 45px;
+	border: 1px solid black;
+	border-radius: 3px;
+	padding: 10px;
+	text-align: center;
 }
 
+.equal-sign, .keys {
+	color: #faecec;
+	font-size: 1.2rem;
+	font-weight: bold;
+	cursor: cell;
+}
 
 .equal-sign:hover, .keys:hover {
-    scale: 1.03;
+	transform: scale(1.03);
+	border: 0.3px solid #ffff0078;
+	border-radius: 3px;
 }
 
 
 .num-keys {
-    display: grid;
-    grid-template-columns: auto auto auto;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	height: 180px;
+}
+
+.aux-keys {
+	display: flex;
+	flex-wrap: wrap;
+	width: 120px;
+	height: 180px;
+}
+
+.inactive-keys {
+	cursor: no-drop;
 }
 
