@@ -23,7 +23,7 @@ header p {
     color: red;
 }
 
-.btn-grid {
+.aux-btn {
     color: #f21a1a;
     background-color: #aaaac8;
     border: 3px dashed yellow;
@@ -38,8 +38,40 @@ header p {
 }
 
 
+.keyboard {
+    background-color: #9f9ffb;
+    display: flex;
+    
+}
+
+.equal-sign {
+    background-color: brown;
+    width: 120px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 10px;
+    text-align: center;
+}
+
+.keys {
+    background-color: brown;
+    width: 60px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 10px;
+    text-align: center;
+}
 
 
+.equal-sign:hover, .keys:hover {
+    scale: 1.03;
+}
 
 
+.num-keys {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
 
