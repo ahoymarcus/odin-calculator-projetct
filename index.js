@@ -1,5 +1,34 @@
+let operationVal = 0;
+let operationSign = '';
+
+let operationArr = [];
 
 
+const calcDisplay = document.getElementById('calc-display');
+const numKeys = document.querySelectorAll('.keyboard__num-keys');
+
+
+
+/* DISPLAY */
+calcDisplay.textContent = operationVal;
+
+
+/* KEYBOARD */
+numKeys.forEach(key => {
+    key.addEventListener('click', (e) => {
+        operationVal = e.target.textContent;
+        operationArr.push(operationVal);
+        console.log(`CURRENT-VALUE: ${operationVal} ::: OPERATION-ARRAY: ${operationArr}`);
+        
+        calcDisplay.textContent = operationVal;
+    });
+});
+
+
+
+
+
+/* MATH OPERATIONS */
 const add = (a, b) => {
 	let result = a + b;
 	

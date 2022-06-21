@@ -51,17 +51,13 @@ hr {
 	margin: auto;
 }
 
-.calc-display, .keyboard {
-	
-}
-
 .calc-display {
 	color: white;
 	background-color: #1e1c1cdb;
 	font-size: 1.4rem;
-	padding: 12px;
+	padding: 16px 16px 12px 12px;
 	text-align: right;
-	border-radius: 3px 3px 0 0;
+	border-radius: 16px 16px 0 0;
 }
 
 .keyboard {
