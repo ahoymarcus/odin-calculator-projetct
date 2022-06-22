@@ -26,6 +26,7 @@ if (/[0-9]+\./.test(testArr.join('')) && testPoint === '.') {
 const calcDisplay = document.getElementById('calc-display');
 const clearKey = document.getElementById('clear-key');
 const returnKey = document.getElementById('carriage-ret');
+const equalKey = document.getElementById('equal-sign');
 const numKeys = document.querySelectorAll('.keyboard__num-keys');
 const basicOperations = document.querySelectorAll('.keyboard__oper-keys');
 
@@ -45,7 +46,28 @@ returnKey.addEventListener('click', () => {
     currentVal = operationArr[operationArr.length - 1];
     calcDisplay.textContent = operationArr.join('');
     
-    console.log(`CURRENT-VALUE: ${currentVal} ()${typeof currentVal}) :::\n OPERATION-ARRAY: ${operationArr.length === 0 ? 'EMPTY' : operationArr} (array-length -> ${operationArr.length})`);
+    console.log(`CURRENT-VALUE: ${currentVal} (${typeof currentVal}) :::\n OPERATION-ARRAY: ${operationArr.length === 0 ? 'EMPTY' : operationArr} (array-length -> ${operationArr.length})`);
+});
+
+/* THE EQUALSIGN */
+equalKey.addEventListener('click', () => {
+    if (operationRegex.test(operationArr.join(''))) {
+        console.log('EQUALSIGN math operation call test');
+        //operate(operator, num1, num2)
+        let operationStr = operationArr.join('');
+        
+        let lhs = parseInt(operationStr.slice(0, operationStr.search(operatorsRegex)));
+        let rhs = parseInt(operationStr.slice(operationStr.search(operatorsRegex) +1));
+        
+        console.log(`LEFT-HAND-SIDE: ${lhs} :::\n RIGHT-HAND-SIDE: ${rhs} :::\n CURRENT-OPERATOR: ${currentOperator}`);
+        
+        let result = operate(currentOperator, lhs, rhs);
+        
+        currentVal = result;
+        operationArr = [result];
+        
+        calcDisplay.textContent = result;
+    }
 });
 
 
@@ -59,7 +81,10 @@ basicOperations.forEach(oper => {
             currentVal = 0;
             operationArr.push(0, currentOperator);
         } else if (operationRegex.test(operationArr.join(''))) {
-            console.log('Math operation call test');
+            console.log('BASIC-OPERATOR math operation call test');
+            //operate(operator, num1, num2)
+            
+            
         } else if (operatorsRegex.test(operationArr)) {
             return;
         } else {
@@ -179,7 +204,7 @@ function operate(operator, num1, num2) {
 		result = add(num1, num2);
 	} else if (operator === '-') {
 		result = subtract(num1, num2);
-	} else if (operator === '*') {
+	} else if (operator === 'x') {
 		result = multiply(num1, num2);
 	} else if (operator === '/') {
 		result = divide(num1, num2);
@@ -191,7 +216,9 @@ function operate(operator, num1, num2) {
 		console.log('Operator not allowed');
 	}
 	
-	console.log(result);
+	console.log(`Operation result ---> ${result}`);
+    
+    return result;
 }
 
 
