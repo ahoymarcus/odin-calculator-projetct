@@ -10,6 +10,18 @@ console.log(operationRegex.test('4x6'));
 console.log(operationRegex.test('4-6'));
 console.log(operationRegex.test('4+6'));
 
+let pointRegex = /[0-9]+\.[0-9]*/;
+
+/* regex testing */
+let testPoint = '.';
+let testArr = [1, 2, '.'];
+if (/[0-9]+\./.test(testArr.join('')) && testPoint === '.') {
+    console.log('Regex testing: true');
+} else {
+    console.log('Regex testing: false');
+}
+
+
 
 const calcDisplay = document.getElementById('calc-display');
 const clearKey = document.getElementById('clear-key');
@@ -42,14 +54,18 @@ basicOperations.forEach(oper => {
     oper.addEventListener('click', (e) => {
         if (operationArr.length === 0) {
             return;
+        } else if (operationArr[operationArr.length - 1] === '.') {
+            currentOperator = e.target.textContent;
+            currentVal = 0;
+            operationArr.push(0, currentOperator);
         } else if (operationRegex.test(operationArr.join(''))) {
             console.log('Math operation call test');
         } else if (operatorsRegex.test(operationArr)) {
             return;
+        } else {
+            currentOperator = e.target.textContent;
+            operationArr.push(currentOperator);
         }
-        
-        currentOperator = e.target.textContent;
-        operationArr.push(currentOperator);
         console.log(`CURRENT-OPERATION: ${currentOperator}`);
         
         calcDisplay.textContent = operationArr.join('');
@@ -85,13 +101,15 @@ numKeys.forEach(key => {
         
             calcDisplay.textContent = currentVal;
         } else {
-            if (operationArr.indexOf('.') !== -1 && e.target.textContent === '.') {
-                return;
-            } else if (operatorsRegex.test(operationArr[operationArr.length - 1]) && e.target.textContent === '.') {
+            if (operatorsRegex.test(operationArr[operationArr.length - 1]) && e.target.textContent === '.') {
                 currentVal = e.target.textContent;
                 operationArr.push(0, currentVal);
                 
                 calcDisplay.textContent = operationArr.join('');
+            } else if (
+                /[0-9]+\.[0-9]*/.test(operationArr.join('')) && e.target.textContent === '.'
+            ) {
+                return;
             } else {
                 currentVal = e.target.textContent;
                 operationArr.push(currentVal);
