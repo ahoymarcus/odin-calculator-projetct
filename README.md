@@ -7,7 +7,7 @@ This is the fifth project from The Odin Project and the third one from the JavaS
 
 <br />
 
-- [my online webpage]()
+- [my online webpage](https://ahoymarcus.github.io/odin-calculator-projetct/)
 
 
 <br />
@@ -18,6 +18,7 @@ Dependências:
 - CSS
 - CSS Patterns
 - JavaScript
+- Regex
 
 
 

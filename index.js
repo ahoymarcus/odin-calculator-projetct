@@ -1,19 +1,19 @@
 let currentVal = 0;
 let currentOperator = '';
-const operatorsRegex = /[/x\-+]/;
-const operationRegex = /[0-9][/x\-+][0-9]/;
+let operationArr = [];
 
 /* REGEX */
+const operatorsRegex = /[/x\-+]/;
+const operationRegex = /[0-9][/x\-+][0-9]/;
 console.log(operationRegex.test('4/6'));
 console.log(operationRegex.test('4x6'));
 console.log(operationRegex.test('4-6'));
 console.log(operationRegex.test('4+6'));
 
 
-let operationArr = [];
-
-const clearKey = document.getElementById('clear-key');
 const calcDisplay = document.getElementById('calc-display');
+const clearKey = document.getElementById('clear-key');
+const returnKey = document.getElementById('carriage-ret');
 const numKeys = document.querySelectorAll('.keyboard__num-keys');
 const basicOperations = document.querySelectorAll('.keyboard__oper-keys');
 
@@ -23,6 +23,15 @@ clearKey.addEventListener('click', () => {
     currentVal = 0;
     calcDisplay.textContent = currentVal;
     operationArr = [];
+    
+    console.log(`CURRENT-VALUE: ${currentVal} ()${typeof currentVal}) :::\n OPERATION-ARRAY: ${operationArr.length === 0 ? 'EMPTY' : operationArr} (array-length -> ${operationArr.length})`);
+});
+
+/* CARRIAGE RETURN */
+returnKey.addEventListener('click', () => {
+    operationArr.pop();
+    currentVal = operationArr[operationArr.length - 1];
+    calcDisplay.textContent = operationArr.join('');
     
     console.log(`CURRENT-VALUE: ${currentVal} ()${typeof currentVal}) :::\n OPERATION-ARRAY: ${operationArr.length === 0 ? 'EMPTY' : operationArr} (array-length -> ${operationArr.length})`);
 });
@@ -78,6 +87,11 @@ numKeys.forEach(key => {
         } else {
             if (operationArr.indexOf('.') !== -1 && e.target.textContent === '.') {
                 return;
+            } else if (operatorsRegex.test(operationArr[operationArr.length - 1]) && e.target.textContent === '.') {
+                currentVal = e.target.textContent;
+                operationArr.push(0, currentVal);
+                
+                calcDisplay.textContent = operationArr.join('');
             } else {
                 currentVal = e.target.textContent;
                 operationArr.push(currentVal);
