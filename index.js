@@ -29,6 +29,8 @@ const returnKey = document.getElementById('carriage-ret');
 const equalKey = document.getElementById('equal-sign');
 const numKeys = document.querySelectorAll('.keyboard__num-keys');
 const basicOperations = document.querySelectorAll('.keyboard__oper-keys');
+const power2 = document.getElementById('power2');
+const rad2 = document.getElementById('rad2');
 
 
 /* CLEAR KEY */
@@ -96,6 +98,45 @@ basicOperations.forEach(oper => {
         calcDisplay.textContent = operationArr.join('');
     });
 });
+
+
+/* OHTER OPERATIONS KEYS **/
+power2.addEventListener('click', () => {
+    if (
+        /[0-9]+\.?[0-9]*/.test(operationArr)
+        && !operatorsRegex.test(operationArr)
+    ) {
+        currentOperator = '**';
+        console.log(`CURRENT-OPERATION: ${currentOperator}`);
+        
+        let result = operate(currentOperator, parseInt(operationArr.join('')));
+        
+        currentVal = result;
+        operationArr = [result];
+        console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
+        
+        calcDisplay.textContent = result;
+    }
+});
+
+rad2.addEventListener('click', () => {
+    if (
+        /[0-9]+\.?[0-9]*/.test(operationArr)
+        && !operatorsRegex.test(operationArr)
+    ) {
+        currentOperator = '&#8730';
+        console.log(`CURRENT-OPERATION: ${currentOperator}`);
+        
+        let result = operate(currentOperator, parseInt(operationArr.join('')));
+        
+        currentVal = result;
+        operationArr = [result];
+        console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
+        
+        calcDisplay.textContent = result;
+    }
+});
+
 
 /* DISPLAY */
 calcDisplay.textContent = currentVal;
