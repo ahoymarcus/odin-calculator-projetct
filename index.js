@@ -33,12 +33,9 @@ basicOperations.forEach(oper => {
     oper.addEventListener('click', (e) => {
         if (operationArr.length === 0) {
             return;
-        } else if (
-            operationArr.indexOf('/') !== -1
-            || operationArr.indexOf('x') !== -1
-            || operationArr.indexOf('-') !== -1
-            || operationArr.indexOf('+') !== -1
-        ) {
+        } else if (operationRegex.test(operationArr.join(''))) {
+            console.log('Math operation call test');
+        } else if (operatorsRegex.test(operationArr)) {
             return;
         }
         
