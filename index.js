@@ -101,7 +101,7 @@ basicOperations.forEach(oper => {
 calcDisplay.textContent = currentVal;
 
 
-/* KEYBOARD */
+/* NUMERIC KEYS */
 /*
  * Validation not completed yet: it's only possible to have decimal point in only
  * one side of a math operation: so, you have either 12,4 + 45 OR 124 + 4,5.
@@ -123,14 +123,30 @@ numKeys.forEach(key => {
         } else if (operationArr.length === 0 && e.target.textContent === '%') {
             console.log('Input teste3');
             
-            calcDisplay.textContent = 'Malformed Expression!';
+            //calcDisplay.textContent = 'Malformed Expression!';
+            return;
         } else if (operationArr.length === 0) {
             currentVal = e.target.textContent;
             operationArr.push(currentVal);
         
             calcDisplay.textContent = currentVal;
         } else {
-            if (
+            if (operationArr[operationArr.length - 1] === '.' && e.target.textContent === '%') {
+                currentOperator = e.target.textContent;
+                currentVal = 0;
+                operationArr.push(0);
+                console.log(`Current-operator: ${currentOperator} - test1`);
+                let operationStr = operationArr.join('');
+                    
+                let result = operate(currentOperator, parseInt(operationStr));
+                    
+                currentVal = result;
+                operationArr = [result];
+                
+                calcDisplay.textContent = result;
+            } else if (operatorsRegex.test(operationArr) && e.target.textContent === '%') {
+                return;
+            } else if (
                 operatorsRegex.test(operationArr[operationArr.length - 1]) && e.target.textContent === '.'
             ) {
                 currentVal = e.target.textContent;
@@ -149,10 +165,24 @@ numKeys.forEach(key => {
             ) {
                 return;
             } else {
-                currentVal = e.target.textContent;
-                operationArr.push(currentVal);
+                if (e.target.textContent === '%') {
+                    currentOperator = e.target.textContent;
+                    console.log(`Current-operator: ${currentOperator} - test2`);
+                    let operationStr = operationArr.join('');
+                    
+                    let result = operate(currentOperator, parseInt(operationStr));
+                    
+                    currentVal = result;
+                    operationArr = [result];
+                    
+                    calcDisplay.textContent = result;
+                } else {
+                    currentVal = e.target.textContent;
+                    operationArr.push(currentVal);
                 
-                calcDisplay.textContent = operationArr.join('');
+                    calcDisplay.textContent = operationArr.join('');
+                }
+                
             } 
         }
             
@@ -185,6 +215,11 @@ const divide = (a, b) => {
 	
 	return result;
 };
+const percent = (a) => {
+    let result = a / 100;
+    
+    return result;
+};
 const power = (a, b = 2) => {
 	let result = a ** b;
 	
@@ -208,7 +243,9 @@ function operate(operator, num1, num2) {
 		result = multiply(num1, num2);
 	} else if (operator === '/') {
 		result = divide(num1, num2);
-	} else if (operator === '**') {
+	} else if (operator === '%') {
+		result = percent(num1);
+    } else if (operator === '**') {
 		result = power(num1);
 	} else if (operator === '&#8730') {
 		result = rad(num1);
