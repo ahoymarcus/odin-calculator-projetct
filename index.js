@@ -1,26 +1,62 @@
-let operationVal = 0;
+let currentVal = 0;
 let operationSign = '';
 
 let operationArr = [];
 
-
+const clearKey = document.getElementById('clear-key');
 const calcDisplay = document.getElementById('calc-display');
 const numKeys = document.querySelectorAll('.keyboard__num-keys');
 
 
+/* CLEAR KEY */
+clearKey.addEventListener('click', () => {
+    currentVal = 0;
+    calcDisplay.textContent = currentVal;
+    operationArr = [];
+    
+    console.log(`CURRENT-VALUE: ${currentVal} ()${typeof currentVal}) :::\n OPERATION-ARRAY: ${operationArr.length === 0 ? 'EMPTY' : operationArr} (array-length -> ${operationArr.length})`);
+});
 
 /* DISPLAY */
-calcDisplay.textContent = operationVal;
+calcDisplay.textContent = currentVal;
 
 
 /* KEYBOARD */
 numKeys.forEach(key => {
     key.addEventListener('click', (e) => {
-        operationVal = e.target.textContent;
-        operationArr.push(operationVal);
-        console.log(`CURRENT-VALUE: ${operationVal} ::: OPERATION-ARRAY: ${operationArr}`);
+        if (operationArr.length === 0 &&  parseInt(e.target.textContent) === 0) {
+            console.log('Input teste1');
+            currentVal = '0';
+            operationArr.push(currentVal, '.');
+            
+            calcDisplay.textContent = operationArr.join('');
+        } else if (operationArr.length === 0 && e.target.textContent === '.') {
+            console.log('Input teste2');
+            currentVal = e.target.textContent;
+            operationArr.push(0, currentVal);
+            
+            calcDisplay.textContent = operationArr.join('');
+        } else if (operationArr.length === 0 && e.target.textContent === '%') {
+            console.log('Input teste3');
+            
+            calcDisplay.textContent = 'Malformed Expression!';
+        } else if (operationArr.length === 0) {
+            currentVal = e.target.textContent;
+            operationArr.push(currentVal);
         
-        calcDisplay.textContent = operationVal;
+            calcDisplay.textContent = currentVal;
+        } else {
+            if (operationArr.indexOf('.') !== -1 && e.target.textContent === '.') {
+                return;
+            } else {
+                currentVal = e.target.textContent;
+                operationArr.push(currentVal);
+                
+                calcDisplay.textContent = operationArr.join('');
+            } 
+        }
+            
+        console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
     });
 });
 
