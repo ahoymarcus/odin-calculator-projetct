@@ -1,11 +1,21 @@
 let currentVal = 0;
-let operationSign = '';
+let currentOperator = '';
+const operatorsRegex = /[/x\-+]/;
+const operationRegex = /[0-9][/x\-+][0-9]/;
+
+/* REGEX */
+console.log(operationRegex.test('4/6'));
+console.log(operationRegex.test('4x6'));
+console.log(operationRegex.test('4-6'));
+console.log(operationRegex.test('4+6'));
+
 
 let operationArr = [];
 
 const clearKey = document.getElementById('clear-key');
 const calcDisplay = document.getElementById('calc-display');
 const numKeys = document.querySelectorAll('.keyboard__num-keys');
+const basicOperations = document.querySelectorAll('.keyboard__oper-keys');
 
 
 /* CLEAR KEY */
@@ -15,6 +25,29 @@ clearKey.addEventListener('click', () => {
     operationArr = [];
     
     console.log(`CURRENT-VALUE: ${currentVal} ()${typeof currentVal}) :::\n OPERATION-ARRAY: ${operationArr.length === 0 ? 'EMPTY' : operationArr} (array-length -> ${operationArr.length})`);
+});
+
+
+/* BASIC OPERATIONS KEYS */
+basicOperations.forEach(oper => {
+    oper.addEventListener('click', (e) => {
+        if (operationArr.length === 0) {
+            return;
+        } else if (
+            operationArr.indexOf('/') !== -1
+            || operationArr.indexOf('x') !== -1
+            || operationArr.indexOf('-') !== -1
+            || operationArr.indexOf('+') !== -1
+        ) {
+            return;
+        }
+        
+        currentOperator = e.target.textContent;
+        operationArr.push(currentOperator);
+        console.log(`CURRENT-OPERATION: ${currentOperator}`);
+        
+        calcDisplay.textContent = operationArr.join('');
+    });
 });
 
 /* DISPLAY */
