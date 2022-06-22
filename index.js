@@ -77,6 +77,10 @@ calcDisplay.textContent = currentVal;
 
 
 /* KEYBOARD */
+/*
+ * Validation not completed yet: it's only possible to have decimal point in only
+ * one side of a math operation: so, you have either 12,4 + 45 OR 124 + 4,5.
+ */
 numKeys.forEach(key => {
     key.addEventListener('click', (e) => {
         if (operationArr.length === 0 &&  parseInt(e.target.textContent) === 0) {
@@ -101,9 +105,18 @@ numKeys.forEach(key => {
         
             calcDisplay.textContent = currentVal;
         } else {
-            if (operatorsRegex.test(operationArr[operationArr.length - 1]) && e.target.textContent === '.') {
+            if (
+                operatorsRegex.test(operationArr[operationArr.length - 1]) && e.target.textContent === '.'
+            ) {
                 currentVal = e.target.textContent;
                 operationArr.push(0, currentVal);
+                
+                calcDisplay.textContent = operationArr.join('');
+            } else if (
+                operatorsRegex.test(operationArr[operationArr.length - 1]) && parseInt(e.target.textContent) === 0
+            ) {
+                currentVal = e.target.textContent;
+                operationArr.push(currentVal, '.');
                 
                 calcDisplay.textContent = operationArr.join('');
             } else if (
