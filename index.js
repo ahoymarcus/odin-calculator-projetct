@@ -21,6 +21,8 @@ if (/[0-9]+\./.test(testArr.join('')) && testPoint === '.') {
 /* VARIABLES */
 let currentVal = 0;
 let currentOperator = '';
+let firstOperand = 0;
+let secondOperand = 0;
 let operationArr = [];
 
 const calcDisplay = document.getElementById('calc-display');
@@ -42,8 +44,12 @@ calcDisplay.textContent = currentVal;
 /* CLEAR KEY */
 clearKey.addEventListener('click', () => {
     currentVal = 0;
-    calcDisplay.textContent = currentVal;
+    currentOperator = '';
+    firstOperand = 0;
+    secondOperand = 0;
     operationArr = [];
+    printMsg('');
+    calcDisplay.textContent = currentVal;
     
     console.log(`CURRENT-VALUE: ${currentVal} ()${typeof currentVal}) :::\n OPERATION-ARRAY: ${operationArr.length === 0 ? 'EMPTY' : operationArr} (array-length -> ${operationArr.length})`);
 });
@@ -61,20 +67,18 @@ returnKey.addEventListener('click', () => {
 equalKey.addEventListener('click', () => {
     if (operationRegex.test(operationArr.join(''))) {
         console.log('EQUALSIGN math operation call test');
-        //operate(operator, num1, num2)
         let operationStr = operationArr.join('');
         
-        let lhs = Number(operationStr.slice(0, operationStr.search(operatorsRegex)));
-        let rhs = Number(operationStr.slice(operationStr.search(operatorsRegex) +1));
+        secondOperand = operationStr.slice(operationStr.search(operatorsRegex) + 1);
         
-        console.log(`LEFT-HAND-SIDE: ${lhs} :::\n RIGHT-HAND-SIDE: ${rhs} :::\n CURRENT-OPERATOR: ${currentOperator}`);
+        console.log(`LEFT-HAND-SIDE: ${firstOperand} :::\n RIGHT-HAND-SIDE: ${secondOperand} :::\n CURRENT-OPERATOR: ${currentOperator}`);
         
-        let result = operate(currentOperator, lhs, rhs);
+        let result = operate(currentOperator, Number(firstOperand), Number(secondOperand));
         
         currentVal = result;
         operationArr = [result];
         
-        printMsg(`${lhs}${currentOperator}${rhs}`);
+        printMsg(`${firstOperand}${currentOperator}${secondOperand}`);
         
         calcDisplay.textContent = result;
     }
@@ -87,26 +91,27 @@ basicOperations.forEach(oper => {
         if (operationArr.length === 0) {
             return;
         } else if (operationArr[operationArr.length - 1] === '.') {
-            currentOperator = e.target.textContent;
             currentVal = 0;
+            currentOperator = e.target.textContent;
             operationArr.push(0, currentOperator);
+            
+            let operationStr = operationArr.join('');
+            firstOperand = operationStr.slice(0, operationStr.search(operatorsRegex));
         } else if (operationRegex.test(operationArr.join(''))) {
             console.log('BASIC-OPERATOR math operation call test');
-            //operate(operator, num1, num2)
             let operationStr = operationArr.join('');
             
-            let lhs = Number(operationStr.slice(0, operationStr.search(operatorsRegex)));
-            let rhs = Number(operationStr.slice(operationStr.search(operatorsRegex) + 1));
+            secondOperand = operationStr.slice(operationStr.search(operatorsRegex) + 1);
             
-            console.log(`LEFT-HAND-SIDE: ${lhs} :::\n RIGHT-HAND-SIDE: ${rhs} :::\n CURRENT-OPERATOR: ${currentOperator}`);
+            console.log(`LEFT-HAND-SIDE: ${firstOperand} :::\n RIGHT-HAND-SIDE: ${secondOperand} :::\n CURRENT-OPERATOR: ${currentOperator}`);
         
-            let result = operate(currentOperator, lhs, rhs);
+            let result = operate(currentOperator, Number(firstOperand), Number(secondOperand));
             
             currentOperator = e.target.textContent;
             currentVal = result;
             operationArr = [result, currentOperator];
             
-            printMsg(`${lhs}${currentOperator}${rhs}`);
+            printMsg(`${firstOperand}${currentOperator}${secondOperand}`);
             
             calcDisplay.textContent = result;
         } else if (operatorsRegex.test(operationArr)) {
@@ -114,6 +119,9 @@ basicOperations.forEach(oper => {
         } else {
             currentOperator = e.target.textContent;
             operationArr.push(currentOperator);
+            
+            let operationStr = operationArr.join('');
+            firstOperand = operationStr.slice(0, operationStr.search(operatorsRegex));
         }
         console.log(`CURRENT-OPERATION: ${currentOperator}`);
         
@@ -131,13 +139,16 @@ power2.addEventListener('click', () => {
         currentOperator = '**';
         console.log(`CURRENT-OPERATION: ${currentOperator}`);
         
-        let result = operate(currentOperator, Number(operationArr.join('')));
+        let operationStr = operationArr.join('');
+        firstOperand = operationStr.slice(0);
+        
+        let result = operate(currentOperator, Number(firstOperand));
         
         currentVal = result;
         operationArr = [result];
         console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
         
-        printMsg(`${operationArr.join('')}${currentOperator}`);
+        printMsg(`${firstOperand}${currentOperator}`);
         calcDisplay.textContent = result;
     } else {
         printTimedMsg('Invalid operation!', 3000);
@@ -152,13 +163,17 @@ rad2.addEventListener('click', () => {
         currentOperator = '&#8730';
         console.log(`CURRENT-OPERATION: ${currentOperator}`);
         
-        let result = operate(currentOperator, Number(operationArr.join('')));
+        let operationStr = operationArr.join('');
+        firstOperand = operationStr.slice(0);
+        
+        let result = operate(currentOperator, Number(firstOperand));
         
         currentVal = result;
         operationArr = [result];
         console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
         
-        printMsg(`${operationArr.join('')}${currentOperator}`);
+        //printMsg(`${firstOperand}${currentOperator}`);
+        printMsg(`${firstOperand}->radiciation`);
         calcDisplay.textContent = result;
     } else {
         printTimedMsg('Invalid operation!', 3000);
@@ -204,13 +219,15 @@ numKeys.forEach(key => {
                 operationArr.push(0);
                 console.log(`Current-operator: ${currentOperator} - test1`);
                 let operationStr = operationArr.join('');
-                    
-                let result = operate(currentOperator, Number(operationStr));
+                firstOperand = operationStr.slice(0);
+                
+                let result = operate(currentOperator, Number(firstOperand));
                     
                 currentVal = result;
                 operationArr = [result];
                 
-                printMsg(operationStr + '&#8730;');
+                //printMsg(`${firstOperand} ->&#8730;`);
+                printMsg(`${firstOperand} ->percent`);
                 calcDisplay.textContent = result;
             } else if (operatorsRegex.test(operationArr) && e.target.textContent === '%') {
                 printTimedMsg('Invalid operation!', 3000);
@@ -239,13 +256,15 @@ numKeys.forEach(key => {
                     currentOperator = e.target.textContent;
                     console.log(`Current-operator: ${currentOperator} - test2`);
                     let operationStr = operationArr.join('');
+                    firstOperand = operationStr.slice(0);
                     
-                    let result = operate(currentOperator, Number(operationStr));
+                    let result = operate(currentOperator, Number(firstOperand));
                     
                     currentVal = result;
                     operationArr = [result];
                     
-                    printMsg(operationStr + '&#8730;');
+                    //printMsg(`${firstOperand} ->&#8730;`);
+                    printMsg(`${firstOperand} ->percent`);
                     calcDisplay.textContent = result;
                 } else {
                     currentVal = e.target.textContent;
@@ -277,16 +296,8 @@ const printTimedMsg = (msg, timer) => {
 
 
 /* MATH OPERATIONS */
-const add = (a, b) => {
-	let result = a + b;
-	
-	return result;
-};
-const subtract = (a, b) => {
-	let result = a - b;
-	
-	return result;
-};
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
 const multiply = (a, b) => {
 	let result = a.toFixed(2) * b.toFixed(2);
 	
@@ -301,21 +312,9 @@ const divide = (a, b) => {
         return 'You got to be kidding! Invalid Operation!';
     }
 };
-const percent = (a) => {
-    let result = a / 100;
-    
-    return result.toFixed(2);
-};
-const power = (a, b = 2) => {
-	let result = a ** b;
-	
-	return result.toFixed(2);
-};
-const rad = (a, b = 0.5) => {
-	let result = a ** b; 
-	
-	return result.toFixed(2);
-};
+const percent = (a) => a.toFixed(2) / 100;
+const power = (a, b = 2) => a.toFixed(2) ** b;
+const rad = (a, b = 0.5) => a.toFixed(2) ** b;
 
 
 function operate(operator, num1, num2) {
