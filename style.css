@@ -51,12 +51,23 @@ hr {
 	margin: auto;
 }
 
-.calc-display {
-	color: white;
+.calc-display, .msg-display {
+    
 	background-color: #1e1c1cdb;
-	font-size: 1.4rem;
+	
 	padding: 16px 16px 12px 12px;
 	text-align: right;
+}
+
+.calc-display {
+    color: white;
+    font-size: 1.4rem;
+}
+
+.msg-display {
+    color: #b3b3ff;
+    font-size: 1rem;
+    border-bottom: 0.5px dotted #6b6b91;
 	border-radius: 16px 16px 0 0;
 }
 

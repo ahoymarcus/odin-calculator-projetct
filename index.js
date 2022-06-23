@@ -1,7 +1,3 @@
-let currentVal = 0;
-let currentOperator = '';
-let operationArr = [];
-
 /* REGEX */
 const operatorsRegex = /[/x\-+]/;
 const operationRegex = /[0-9][/x\-+][0-9]/;
@@ -22,8 +18,13 @@ if (/[0-9]+\./.test(testArr.join('')) && testPoint === '.') {
 }
 
 
+/* VARIABLES */
+let currentVal = 0;
+let currentOperator = '';
+let operationArr = [];
 
 const calcDisplay = document.getElementById('calc-display');
+const msgDisplay = document.getElementById('msg-display');
 const clearKey = document.getElementById('clear-key');
 const returnKey = document.getElementById('carriage-ret');
 const equalKey = document.getElementById('equal-sign');
@@ -31,6 +32,11 @@ const numKeys = document.querySelectorAll('.keyboard__num-keys');
 const basicOperations = document.querySelectorAll('.keyboard__oper-keys');
 const power2 = document.getElementById('power2');
 const rad2 = document.getElementById('rad2');
+
+
+
+/* DISPLAY */
+calcDisplay.textContent = currentVal;
 
 
 /* CLEAR KEY */
@@ -68,6 +74,8 @@ equalKey.addEventListener('click', () => {
         currentVal = result;
         operationArr = [result];
         
+        printMsg(`${lhs}${currentOperator}${rhs}`);
+        
         calcDisplay.textContent = result;
     }
 });
@@ -85,8 +93,22 @@ basicOperations.forEach(oper => {
         } else if (operationRegex.test(operationArr.join(''))) {
             console.log('BASIC-OPERATOR math operation call test');
             //operate(operator, num1, num2)
+            let operationStr = operationArr.join('');
             
+            let lhs = parseInt(operationStr.slice(0, operationStr.search(operatorsRegex)));
+            let rhs = parseInt(operationStr.slice(operationStr.search(operatorsRegex) + 1));
             
+            console.log(`LEFT-HAND-SIDE: ${lhs} :::\n RIGHT-HAND-SIDE: ${rhs} :::\n CURRENT-OPERATOR: ${currentOperator}`);
+        
+            let result = operate(currentOperator, lhs, rhs);
+            
+            currentOperator = e.target.textContent;
+            currentVal = result;
+            operationArr = [result, currentOperator];
+            
+            printMsg(`${lhs}${currentOperator}${rhs}`);
+            
+            calcDisplay.textContent = result;
         } else if (operatorsRegex.test(operationArr)) {
             return;
         } else {
@@ -115,7 +137,10 @@ power2.addEventListener('click', () => {
         operationArr = [result];
         console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
         
+        printMsg(`${operationArr.join('')}${currentOperator}`);
         calcDisplay.textContent = result;
+    } else {
+        printTimedMsg('Invalid operation!', 3000);
     }
 });
 
@@ -133,13 +158,13 @@ rad2.addEventListener('click', () => {
         operationArr = [result];
         console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
         
+        printMsg(`${operationArr.join('')}${currentOperator}`);
         calcDisplay.textContent = result;
+    } else {
+        printTimedMsg('Invalid operation!', 3000);
     }
 });
 
-
-/* DISPLAY */
-calcDisplay.textContent = currentVal;
 
 
 /* NUMERIC KEYS */
@@ -164,7 +189,8 @@ numKeys.forEach(key => {
         } else if (operationArr.length === 0 && e.target.textContent === '%') {
             console.log('Input teste3');
             
-            //calcDisplay.textContent = 'Malformed Expression!';
+            printTimedMsg('Invalid operation!', 3000);
+            
             return;
         } else if (operationArr.length === 0) {
             currentVal = e.target.textContent;
@@ -184,8 +210,11 @@ numKeys.forEach(key => {
                 currentVal = result;
                 operationArr = [result];
                 
+                printMsg(operationStr + '&#8730;');
                 calcDisplay.textContent = result;
             } else if (operatorsRegex.test(operationArr) && e.target.textContent === '%') {
+                printTimedMsg('Invalid operation!', 3000);
+                
                 return;
             } else if (
                 operatorsRegex.test(operationArr[operationArr.length - 1]) && e.target.textContent === '.'
@@ -216,6 +245,7 @@ numKeys.forEach(key => {
                     currentVal = result;
                     operationArr = [result];
                     
+                    printMsg(operationStr + '&#8730;');
                     calcDisplay.textContent = result;
                 } else {
                     currentVal = e.target.textContent;
@@ -232,6 +262,17 @@ numKeys.forEach(key => {
 });
 
 
+
+/* CALCULATOR MESSAGES */
+const printMsg = (msg) => msgDisplay.textContent = msg;
+
+const printTimedMsg = (msg, timer) => {
+    msgDisplay.textContent = msg;
+        
+    setTimeout(() => {
+        msgDisplay.textContent = '';
+    }, timer);
+};
 
 
 
