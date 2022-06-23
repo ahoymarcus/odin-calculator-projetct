@@ -25,17 +25,17 @@ Dependências:
 <br />
 
 
-### Imagem da tela do jogo com valor de grid inicial:
+### Imagem da calculadora em sua operação normal:
 
-![Imagem da tela do jogo com valor de grid inicial](/public/images/)
+![Imagem da calculadora em sua operação normal](/public/images/odin-javascript-calculator-project-01)
 
 
 <br />
 
 
-### Imagem da tela do jogo com novo valor de grid:
+### Imagem da calculadora retornando mensagem de operação inválida para o usuário:
 
-![Imagem da tela do jogo com novo valor de grid](/public/images/)
+![Imagem da calculadora retornando mensagem de operação inválida para o usuário](/public/images/odin-javascript-calculator-project-02.png)
 
 
 <br />
