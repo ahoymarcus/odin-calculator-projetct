@@ -64,8 +64,8 @@ equalKey.addEventListener('click', () => {
         //operate(operator, num1, num2)
         let operationStr = operationArr.join('');
         
-        let lhs = parseInt(operationStr.slice(0, operationStr.search(operatorsRegex)));
-        let rhs = parseInt(operationStr.slice(operationStr.search(operatorsRegex) +1));
+        let lhs = Number(operationStr.slice(0, operationStr.search(operatorsRegex)));
+        let rhs = Number(operationStr.slice(operationStr.search(operatorsRegex) +1));
         
         console.log(`LEFT-HAND-SIDE: ${lhs} :::\n RIGHT-HAND-SIDE: ${rhs} :::\n CURRENT-OPERATOR: ${currentOperator}`);
         
@@ -95,8 +95,8 @@ basicOperations.forEach(oper => {
             //operate(operator, num1, num2)
             let operationStr = operationArr.join('');
             
-            let lhs = parseInt(operationStr.slice(0, operationStr.search(operatorsRegex)));
-            let rhs = parseInt(operationStr.slice(operationStr.search(operatorsRegex) + 1));
+            let lhs = Number(operationStr.slice(0, operationStr.search(operatorsRegex)));
+            let rhs = Number(operationStr.slice(operationStr.search(operatorsRegex) + 1));
             
             console.log(`LEFT-HAND-SIDE: ${lhs} :::\n RIGHT-HAND-SIDE: ${rhs} :::\n CURRENT-OPERATOR: ${currentOperator}`);
         
@@ -131,7 +131,7 @@ power2.addEventListener('click', () => {
         currentOperator = '**';
         console.log(`CURRENT-OPERATION: ${currentOperator}`);
         
-        let result = operate(currentOperator, parseInt(operationArr.join('')));
+        let result = operate(currentOperator, Number(operationArr.join('')));
         
         currentVal = result;
         operationArr = [result];
@@ -152,7 +152,7 @@ rad2.addEventListener('click', () => {
         currentOperator = '&#8730';
         console.log(`CURRENT-OPERATION: ${currentOperator}`);
         
-        let result = operate(currentOperator, parseInt(operationArr.join('')));
+        let result = operate(currentOperator, Number(operationArr.join('')));
         
         currentVal = result;
         operationArr = [result];
@@ -205,7 +205,7 @@ numKeys.forEach(key => {
                 console.log(`Current-operator: ${currentOperator} - test1`);
                 let operationStr = operationArr.join('');
                     
-                let result = operate(currentOperator, parseInt(operationStr));
+                let result = operate(currentOperator, Number(operationStr));
                     
                 currentVal = result;
                 operationArr = [result];
@@ -240,7 +240,7 @@ numKeys.forEach(key => {
                     console.log(`Current-operator: ${currentOperator} - test2`);
                     let operationStr = operationArr.join('');
                     
-                    let result = operate(currentOperator, parseInt(operationStr));
+                    let result = operate(currentOperator, Number(operationStr));
                     
                     currentVal = result;
                     operationArr = [result];
@@ -288,29 +288,33 @@ const subtract = (a, b) => {
 	return result;
 };
 const multiply = (a, b) => {
-	let result = a * b;
+	let result = a.toFixed(2) * b.toFixed(2);
 	
-	return result;
+	return result.toFixed(2);
 };
 const divide = (a, b) => {
-	let result = a / b;
+	if (b > 0) {
+        let result = a.toFixed(2) / b.toFixed(2);
 	
-	return result;
+        return result.toFixed(2);
+    } else {
+        return 'You got to be kidding! Invalid Operation!';
+    }
 };
 const percent = (a) => {
     let result = a / 100;
     
-    return result;
+    return result.toFixed(2);
 };
 const power = (a, b = 2) => {
 	let result = a ** b;
 	
-	return result;
+	return result.toFixed(2);
 };
 const rad = (a, b = 0.5) => {
 	let result = a ** b; 
 	
-	return result;
+	return result.toFixed(2);
 };
 
 
