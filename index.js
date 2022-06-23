@@ -6,8 +6,6 @@ console.log(operationRegex.test('4x6'));
 console.log(operationRegex.test('4-6'));
 console.log(operationRegex.test('4+6'));
 
-let pointRegex = /[0-9]+\.[0-9]*/;
-
 /* regex testing */
 let testPoint = '.';
 let testArr = [1, 2, '.'];
@@ -183,10 +181,6 @@ rad2.addEventListener('click', () => {
 
 
 /* NUMERIC KEYS */
-/*
- * Validation not completed yet: it's only possible to have decimal point in only
- * one side of a math operation: so, you have either 12,4 + 45 OR 124 + 4,5.
- */
 numKeys.forEach(key => {
     key.addEventListener('click', (e) => {
         if (operationArr.length === 0 &&  parseInt(e.target.textContent) === 0) {
@@ -250,6 +244,19 @@ numKeys.forEach(key => {
             } else if (
                 /[0-9]+\.[0-9]*/.test(operationArr.join('')) && e.target.textContent === '.'
             ) {
+                if (secondOperand.toString().search(operatorsRegex) === -1) {
+                    currentVal = e.target.textContent;
+                    operationArr.push('.');
+                    let operationStr = operationArr.join('');
+                    
+                    secondOperand = operationStr.slice(operationStr.search(operatorsRegex) + 1);
+                    
+                    calcDisplay.textContent = operationArr.join('');
+                    
+                    console.log(`CURRENT-VALUE: ${currentVal} ::: OPERATION-ARRAY: ${operationArr}`);
+                    console.log('secondOperand: ', secondOperand);
+                }
+                
                 return;
             } else {
                 if (e.target.textContent === '%') {
@@ -297,15 +304,19 @@ const printTimedMsg = (msg, timer) => {
 
 /* MATH OPERATIONS */
 const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
+const subtract = (a, b) => {
+    let result = a - b;
+    
+    return result.toFixed(2);
+};
 const multiply = (a, b) => {
-	let result = a.toFixed(2) * b.toFixed(2);
+	let result = a * b;
 	
 	return result.toFixed(2);
 };
 const divide = (a, b) => {
 	if (b > 0) {
-        let result = a.toFixed(2) / b.toFixed(2);
+        let result = a / b;
 	
         return result.toFixed(2);
     } else {
@@ -342,6 +353,5 @@ function operate(operator, num1, num2) {
     
     return result;
 }
-
 
 
